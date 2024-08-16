@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
-//@CrossOrigin(origins = "https://landingpage2424.netlify.app")
+@CrossOrigin(origins = "https://landingpage2424.netlify.app")
 public class productController {
 
     private ProductService productService;
@@ -22,33 +22,27 @@ public class productController {
     @GetMapping
     public ResponseEntity<List<Product>> getAll() {
         List<Product> products = productService.getAllProducts();
-
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable int id) throws Exception {
-
         Product product = productService.getProductById(id);
-
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody Product product) throws Exception {
-
         return new ResponseEntity<>(productService.createProduct(product), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable int id, Product product) throws Exception {
-
-
-        return new ResponseEntity<>(productService.updateProduct(id,product), HttpStatus.OK);
+    public ResponseEntity<Product> updateProduct(@PathVariable int id, @RequestBody Product product) throws Exception {
+        return new ResponseEntity<>(productService.updateProduct(id, product), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable int id, Product product) throws Exception {
+    public ResponseEntity<String> deleteProduct(@PathVariable int id) throws Exception {
         productService.deleteProduct(id);
         return new ResponseEntity<>("Product Deleted Successfully", HttpStatus.OK);
     }
@@ -58,6 +52,4 @@ public class productController {
     public ResponseEntity<String> handleExecption(Exception exception){
         return new ResponseEntity<>("Product Not Found", HttpStatus.NOT_FOUND);
     }
-
-
 }

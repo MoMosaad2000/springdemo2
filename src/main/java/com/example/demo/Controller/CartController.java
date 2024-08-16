@@ -61,6 +61,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/cart")
+@CrossOrigin(origins = "https://landingpage2424.netlify.app")
 public class CartController {
 
     private final ProductService productService;
