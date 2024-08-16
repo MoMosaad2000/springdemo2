@@ -1,0 +1,23 @@
+# استخدم صورة Maven مع Java 20 كقاعدة
+FROM maven:3.8.5-openjdk-20 AS build
+
+# تعيين دليل العمل
+WORKDIR /app
+
+# نسخ ملفات المشروع إلى الحاوية
+COPY . /app
+
+# بناء المشروع باستخدام Maven
+RUN mvn clean install
+
+# استخدام صورة JRE لتشغيل التطبيق مع Java 20
+FROM openjdk:20-jre-slim
+
+# تعيين دليل العمل
+WORKDIR /app
+
+# نسخ الملف الجاهز من مرحلة البناء
+COPY --from=build /app/target/demo-0.0.1-SNAPSHOT.jar /app/demo-0.0.1-SNAPSHOT.jar
+
+# تشغيل التطبيق
+ENTRYPOINT ["java", "-jar", "/app/demo-0.0.1-SNAPSHOT.jar"]
