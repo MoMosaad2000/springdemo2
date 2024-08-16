@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
-@CrossOrigin(origins = "https://landingpage2424.netlify.app")
+//@CrossOrigin(origins = "https://landingpage2424.netlify.app")
 public class productController {
 
     private ProductService productService;
